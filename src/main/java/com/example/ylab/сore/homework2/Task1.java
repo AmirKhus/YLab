@@ -68,8 +68,7 @@ public class Task1 {
         Arrays.stream(RAW_DATA)
                 .filter(Objects::nonNull)
                 .distinct()
-                .map(ComplexExamples.Person::getName)
-                .collect(Collectors.toMap(name -> name, numberOfNameRepetitions -> 1, Integer::sum))
+                .collect(Collectors.groupingBy(ComplexExamples.Person::getName,Collectors.counting()))
                 .forEach((name, numberOfNameRepetitions) -> System.out.println("Key: " + name + "\n" +
                         "Value:" + numberOfNameRepetitions));
     }
