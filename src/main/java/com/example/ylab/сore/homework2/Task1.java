@@ -69,8 +69,8 @@ public class Task1 {
                 .filter(Objects::nonNull)
                 .distinct()
                 .map(ComplexExamples.Person::getName)
-                .collect(Collectors.toMap(key -> key, val -> 1, Integer::sum))
-                .forEach((key1, value) -> System.out.println("Key: " + key1 + "\n" +
-                        "Value:" + value));
+                .collect(Collectors.toMap(name -> name, numberOfNameRepetitions -> 1, Integer::sum))
+                .forEach((name, numberOfNameRepetitions) -> System.out.println("Key: " + name + "\n" +
+                        "Value:" + numberOfNameRepetitions));
     }
 }
