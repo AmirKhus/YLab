@@ -72,37 +72,5 @@ public class Task1 {
                 .collect(Collectors.toMap(key -> key, val -> 1, Integer::sum))
                 .forEach((key1, value) -> System.out.println("Key: " + key1 + "\n" +
                         "Value:" + value));
-
-        streamApiVar();
-//        Map<Integer, String> map = new HashMap<>();
-//        for (ComplexExamples.Person rawDatum : RAW_DATA) {
-//            map.put(rawDatum.getId(), rawDatum.getName());
-//        }
-//        Map<String, Integer> nameToCount = new TreeMap<>();
-//
-//        for (int i = 0; i < map.size(); i++) {
-//            String name = map.get(i);
-//            if (nameToCount.containsKey(name))
-//                nameToCount.put(name, nameToCount.get(name) + 1);
-//            else
-//                nameToCount.put(name,1);
-//        }
-//
-//        List<String> name =  new ArrayList<>(nameToCount.keySet());
-//
-//        for (String informationPersonal : name) {
-//            System.out.println("Key: " + informationPersonal + "\n" +
-//                    "Value:" + nameToCount.get(informationPersonal));
-//        }
-    }
-
-    static void streamApiVar() {
-        Arrays.stream(RAW_DATA)
-                .filter(Objects::nonNull)
-                .distinct()
-                .map(ComplexExamples.Person::getName)
-                .collect(Collectors.toMap(key -> key, val -> 1, Integer::sum))
-                .forEach((key1, value) -> System.out.println("Key: " + key1 + "\n" +
-                                                             "Value:" + value));
     }
 }
