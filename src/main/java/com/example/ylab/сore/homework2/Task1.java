@@ -25,7 +25,7 @@ public class Task1 {
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof ComplexExamples.Person person)) return false;
+            if (!(o instanceof Person person)) return false;
             return getId() == person.getId() && getName().equals(person.getName());
         }
 
@@ -35,41 +35,60 @@ public class Task1 {
         }
     }
 
-    private static ComplexExamples.Person[] RAW_DATA = new ComplexExamples.Person[]{
-            new ComplexExamples.Person(0, "Harry"),
-            new ComplexExamples.Person(0, "Harry"), // дубликат
-            new ComplexExamples.Person(1, "Harry"), // тёзка
-            new ComplexExamples.Person(2, "Harry"),
-            new ComplexExamples.Person(3, "Emily"),
-            new ComplexExamples.Person(4, "Jack"),
-            new ComplexExamples.Person(4, "Jack"),
-            new ComplexExamples.Person(5, "Amelia"),
-            new ComplexExamples.Person(5, "Amelia"),
-            new ComplexExamples.Person(6, "Amelia"),
-            new ComplexExamples.Person(7, "Amelia"),
-            new ComplexExamples.Person(8, "Amelia"),
+    private static Person[] RAW_DATA = new Person[]{
+            new Person(0, "Harry"),
+            new Person(0, "Harry"), // дубликат
+            new Person(1, "Harry"), // тёзка
+            new Person(2, "Harry"),
+            new Person(3, "Emily"),
+            new Person(4, "Jack"),
+            new Person(4, "Jack"),
+            new Person(5, "Amelia"),
+            new Person(5, "Amelia"),
+            new Person(6, "Amelia"),
+            new Person(7, "Amelia"),
+            new Person(8, "Amelia"),
     };
 
     public static void main(String[] args) {
-        System.out.println("Raw data:");
-        System.out.println();
 
-        for (ComplexExamples.Person person : RAW_DATA) {
-            System.out.println(person.id + " - " + person.name);
+        System.out.println("Duplicate filtered, grouped by name, sorted by name and id:");
+        System.out.println();
+        if (RAW_DATA != null) {
+        Arrays.stream(RAW_DATA)
+                .filter(Objects::nonNull)
+                .sorted(Comparator.comparing(Person::getName))
+                .sorted(Comparator.comparing(Person::getId))
+                .distinct()
+                .collect(Collectors.groupingBy(Person::getName))
+                .forEach((name, numberOfNameRepetitions) -> {
+                    System.out.println(name);
+                    for (int i = 0; i < numberOfNameRepetitions.size(); i++) {
+                        int count = i+1;
+                        System.out.println( count +" - "+ numberOfNameRepetitions.get(i).getName() + "(" +numberOfNameRepetitions.get(i).getId() +")");
+                    }
+                });
+                }else {
+            System.out.println("Введите значение в массив");
         }
 
         System.out.println();
         System.out.println("**************************************************");
         System.out.println();
-        System.out.println("Duplicate filtered, grouped by name, sorted by name and id:");
+        System.out.println("Убрать дубликаты, отсортировать по идентификатору, сгруппировать по имени:");
         System.out.println();
 
-
-        Arrays.stream(RAW_DATA)
-                .filter(Objects::nonNull)
-                .distinct()
-                .collect(Collectors.groupingBy(ComplexExamples.Person::getName,Collectors.counting()))
-                .forEach((name, numberOfNameRepetitions) -> System.out.println("Key: " + name + "\n" +
-                        "Value:" + numberOfNameRepetitions));
+        if (RAW_DATA != null) {
+            Arrays.stream(RAW_DATA)
+                    .filter(Objects::nonNull)
+                    .distinct()
+                    .sorted(Comparator.comparing(Person::getName))
+                    .sorted(Comparator.comparing(Person::getId))
+                    .collect(Collectors.groupingBy(Person::getName,Collectors.counting()))
+                    .forEach((name, numberOfNameRepetitions) -> System.out.println("Key: " + name + "\n" +
+                            "Value:" + numberOfNameRepetitions));
+        }else {
+            System.out.println("Введите значение в массив");
+        }
     }
 }
