@@ -57,6 +57,7 @@ public class Task1 {
         if (RAW_DATA != null) {
         Arrays.stream(RAW_DATA)
                 .filter(Objects::nonNull)
+                .filter(obj -> obj.getName() != null)
                 .sorted(Comparator.comparing(Person::getName))
                 .sorted(Comparator.comparing(Person::getId))
                 .distinct()
@@ -81,6 +82,7 @@ public class Task1 {
         if (RAW_DATA != null) {
             Arrays.stream(RAW_DATA)
                     .filter(Objects::nonNull)
+                    .filter(obj -> obj.getName() != null)
                     .distinct()
                     .sorted(Comparator.comparing(Person::getName))
                     .sorted(Comparator.comparing(Person::getId))
